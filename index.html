@@ -3,126 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nepal Daily Hub</title>
+    <title>Nepal Daily Hub - Ultimate Portal</title>
     <style>
+        :root {
+            --primary-color: #1a73e8;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #202124;
+            --border-color: #dfe1e5;
+        }
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f6f9;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
-        header {
-            background-color: #0066cc;
+        /* गूगल जैसा सर्च और नेविगेशन बार */
+        nav {
+            background: var(--card-bg);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .search-container {
+            display: flex;
+            background: #f1f3f4;
+            border-radius: 24px;
+            padding: 8px 15px;
+            width: 40%;
+            max-width: 400px;
+            border: 1px solid transparent;
+        }
+        .search-container input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+        .user-auth-btn {
+            background: var(--primary-color);
             color: white;
-            padding: 30px 20px;
-            text-align: center;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
         }
-        header h1 {
-            margin: 0 0 10px;
-            font-size: 2.2rem;
-        }
-        header p {
-            margin: 0;
-            font-size: 1.1rem;
-        }
+        
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 20px auto;
             padding: 0 15px;
         }
-        .section-title {
-            color: #0066cc;
-            border-bottom: 2px solid #0066cc;
-            padding-bottom: 5px;
+
+        /* विज्ञापन बैनर बॉक्स (कमाई के लिए) */
+        .ad-banner {
+            background: #fff8e1;
+            border: 2px dashed #ffe082;
+            color: #b78103;
+            text-align: center;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-color);
             margin-top: 30px;
+            padding-bottom: 5px;
+        }
+        .section-header h2 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        /* ग्रिड लेआउट (YouTube/Google जैसा कार्ड सिस्टम) */
+        .grid-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
         .card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 15px;
+            background: var(--card-bg);
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
         }
-        .card h3 {
-            margin-top: 0;
-            color: #222;
+        .card:hover {
+            transform: translateY(-3px);
         }
-        .video-box {
+        .card-body {
+            padding: 15px;
+        }
+        .card-body h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.1rem;
+            color: #1a0dab;
+        }
+        .card-body p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #4d5156;
+        }
+
+        /* वीडियो प्लेयर */
+        .video-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
             height: 0;
-            margin-top: 10px;
         }
-        .video-box iframe {
+        .video-container iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 6px;
         }
-        .game-btn {
+
+        .action-btn {
             display: inline-block;
-            background-color: #28a745;
+            background-color: #34a853;
             color: white;
-            padding: 10px 20px;
+            padding: 8px 15px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 4px;
             font-weight: bold;
             margin-top: 10px;
+            font-size: 0.9rem;
         }
+
         footer {
             text-align: center;
-            padding: 20px;
-            background-color: #222;
-            color: #aaa;
-            margin-top: 40px;
+            padding: 25px;
+            background-color: #f1f3f4;
+            color: #5f6368;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
             font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Nepal Daily Hub</h1>
-        <p>नेपाल की ताज़ा खबरें, वीडियो, गेम्स और ऑफर्स — सबका मज़ा एक ही जगह</p>
-    </header>
+    <!-- टॉप नेविगेशन बार (Google / YouTube जैसा लुक) -->
+    <nav>
+        <a href="#" class="logo">Nepal Daily Hub</a>
+        <div class="search-container">
+            <input type="text" placeholder="खोजें (Search news, videos...)...">
+        </div>
+        <a href="#login" class="user-auth-btn">लॉगिन / आईडी बनाएँ</a>
+    </nav>
 
     <div class="container">
-        
-        <!-- 🎥 वीडियो सेक्शन (YouTube Video) -->
-        <h2 class="section-title">🎥 ताज़ा वीडियो (Featured Videos)</h2>
-        <div class="card">
-            <h3>नेपाल डेली हब - स्पेशल रिपोर्ट</h3>
-            <p>यहाँ आप सीधे यूट्यूब के वीडियो अपनी वेबसाइट पर चला सकते हैं:</p>
-            <div class="video-box">
-                <!-- यहाँ किसी भी YouTube वीडियो का प्लेयर लगा हुआ है -->
+
+        <!-- 📢 विज्ञापन लगाने की जगह (Top Ad) -->
+        <div class="ad-banner">
+            📢 [ यहाँ अपना विज्ञापन बैनर (AdSense / Ad Code) लगाएं ]
+        </div>
+
+        <!-- 🎥 वीडियो सेक्शन (YouTube जैसा प्लेयर) -->
+        <div class="section-header">
+            <h2>🎥 वायरल वीडियो ज़ोन (Videos)</h2>
+        </div>
+        <div class="card" style="margin-top: 15px;">
+            <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="card-body">
+                <h3>नेपाल डेली हब - स्पेशल लाइव रिपोर्ट</h3>
+                <p>ताज़ा वीडियो अपडेट और विश्लेषण यहाँ देखें।</p>
             </div>
         </div>
 
         <!-- 📰 ताज़ा खबरें सेक्शन -->
-        <h2 class="section-title">📰 ताज़ा खबरें (Latest News)</h2>
-        <div class="card">
-            <h3>नेपाल में डिजिटल सेवाओं का नया विस्तार</h3>
-            <p>देशभर में इंटरनेट और डिजिटल भुगतानों को बढ़ावा देने के लिए नए दिशा-निर्देश जारी किए गए हैं।</p>
+        <div class="section-header">
+            <h2>📰 ताज़ा खबरें (Latest News)</h2>
+        </div>
+        <div class="grid-box">
+            <div class="card">
+                <div class="card-body">
+                    <h3>डिजिटल नेपाल का नया विजन</h3>
+                    <p>देशभर में इंटरनेट और तकनीक के विस्तार को लेकर सरकार ने नए कदम उठाए हैं।</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>पर्यटन क्षेत्र में ऐतिहासिक वृद्धि</h3>
+                    <p>पर्यटकों की संख्या में भारी उछाल आने से स्थानीय व्यापार में जबरदस्त तेजी आई है।</p>
+                </div>
+            </div>
         </div>
 
-        <!-- 🎮 गेम्स सेक्शन -->
-        <h2 class="section-title">🎮 गेम ज़ोन (Fun & Games)</h2>
-        <div class="card">
-            <h3>ऑनलाइन मिनी गेम्स खेलें</h3>
-            <p>अपनी पसंद के मज़ेदार और रोमांचक ब्राउज़र गेम्स यहाँ खेलें और अपना मनोरंजन करें।</p>
-            <a href="https://poki.com" target="_blank" class="game-btn">गेम खेलना शुरू करें 🕹️</a>
+        <!-- 📢 बीच का विज्ञापन बॉक्स -->
+        <div class="ad-banner">
+            📢 [ यहाँ दूसरा विज्ञापन लगाकर अपनी कमाई बढ़ाएं ]
         </div>
 
-        <!-- 🔥 बेहतरीन ऑफर्स सेक्शन -->
-        <h2 class="section-title">🔥 बेहतरीन ऑफर्स (Best Offers)</h2>
-        <div class="card">
-            <h3>फेस्टिवल शॉपिंग डिस्काउंट</h3>
-            <p>प्रमुख ऑनलाइन और लोकल स्टोर पर कपड़ों और गैजेट्स पर भारी छूट मिल रही है।</p>
+        <!-- 🎮 गेम ज़ोन सेक्शन -->
+        <div class="section-header">
+            <h2>🎮 गेम ज़ोन (Games Hub)</h2>
+        </div>
+        <div class="card" style="margin-top: 15px;">
+            <div class="card-body">
+                <h3>ऑनलाइन मिनी गेम्स खेलें</h3>
+                <p>रोमांचक ब्राउज़र गेम्स का आनंद लें और अपना मनोरंजन करें।</p>
+                <a href="https://poki.com" target="_blank" class="action-btn">गेम खेलना शुरू करें 🕹️</a>
+            </div>
+        </div>
+
+        <!-- 🔥 ऑफर्स सेक्शन -->
+        <div class="section-header">
+            <h2>🔥 बेस्ट ऑफर्स (Offers & Gadgets)</h2>
+        </div>
+        <div class="grid-box">
+            <div class="card">
+                <div class="card-body">
+                    <h3>फेस्टिवल शॉपिंग डिस्काउंट</h3>
+                    <p>कपड़ों और गैजेट्स पर मिल रही भारी छूट (फ्लैट 50% ऑफ) की जानकारी।</p>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -132,4 +256,5 @@
     </footer>
 
 </body>
-</html>
+    </html>
+    
