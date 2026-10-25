@@ -3,258 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nepal Daily Hub - Ultimate Portal</title>
+    <title>Nepal Daily Hub</title>
     <style>
-        :root {
-            --primary-color: #1a73e8;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-color: #202124;
-            --border-color: #dfe1e5;
+        * {
+            box-sizing: border-box;
         }
         body {
-            font-family: 'Roboto', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: #f9f9f9;
+            color: #0f0f0f;
+            padding-bottom: 70px; /* नीचे के नेविगेशन के लिए जगह */
         }
-        /* गूगल जैसा सर्च और नेविगेशन बार */
-        nav {
-            background: var(--card-bg);
-            padding: 12px 20px;
+        /* यूट्यूब जैसा टॉप हेडर */
+        .top-bar {
+            background: #ffffff;
+            padding: 10px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e5e5e5;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
-        .logo {
-            font-size: 1.4rem;
+        .app-logo {
+            font-size: 1.2rem;
             font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-        .search-container {
+            color: #ff0000; /* YouTube रेड टच */
             display: flex;
-            background: #f1f3f4;
-            border-radius: 24px;
-            padding: 8px 15px;
-            width: 40%;
-            max-width: 400px;
-            border: 1px solid transparent;
+            align-items: center;
+            gap: 5px;
         }
-        .search-container input {
+        .search-box {
+            background: #f1f1f1;
+            border-radius: 20px;
+            padding: 6px 12px;
+            width: 45%;
+            display: flex;
+            align-items: center;
+        }
+        .search-box input {
             border: none;
             background: transparent;
             outline: none;
             width: 100%;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
-        .user-auth-btn {
-            background: var(--primary-color);
+        .login-chip {
+            background: #2563eb;
             color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
             text-decoration: none;
-            font-size: 0.9rem;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 0 15px;
         }
 
-        /* विज्ञापन बैनर बॉक्स (कमाई के लिए) */
-        .ad-banner {
-            background: #fff8e1;
-            border: 2px dashed #ffe082;
-            color: #b78103;
+        .main-content {
+            padding: 12px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* विज्ञापन बैनर */
+        .ad-space {
+            background: #fffbeb;
+            border: 1px dashed #f59e0b;
+            color: #b45309;
             text-align: center;
-            padding: 15px;
-            margin: 20px 0;
+            padding: 10px;
             border-radius: 8px;
+            font-size: 0.85rem;
             font-weight: bold;
+            margin-bottom: 15px;
         }
 
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--primary-color);
-            margin-top: 30px;
-            padding-bottom: 5px;
-        }
-        .section-header h2 {
-            color: var(--primary-color);
-            margin: 0;
-            font-size: 1.3rem;
-        }
-
-        /* ग्रिड लेआउट (YouTube/Google जैसा कार्ड सिस्टम) */
-        .grid-box {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .card {
-            background: var(--card-bg);
-            border-radius: 8px;
+        /* वीडियो कार्ड (YouTube स्टाइल) */
+        .video-card {
+            background: #fff;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .card:hover {
-            transform: translateY(-3px);
-        }
-        .card-body {
-            padding: 15px;
-        }
-        .card-body h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.1rem;
-            color: #1a0dab;
-        }
-        .card-body p {
-            margin: 0;
-            font-size: 0.9rem;
-            color: #4d5156;
-        }
-
-        /* वीडियो प्लेयर */
-        .video-container {
+        .video-wrapper {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%;
-            height: 0;
+            background: #000;
         }
-        .video-container iframe {
+        .video-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
         }
-
-        .action-btn {
-            display: inline-block;
-            background-color: #34a853;
-            color: white;
-            padding: 8px 15px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-top: 10px;
-            font-size: 0.9rem;
+        .video-info {
+            padding: 10px 12px;
+        }
+        .video-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 0.95rem;
+            color: #0f0f0f;
+        }
+        .video-info p {
+            margin: 0;
+            font-size: 0.75rem;
+            color: #606060;
         }
 
-        footer {
-            text-align: center;
-            padding: 25px;
-            background-color: #f1f3f4;
-            color: #5f6368;
-            margin-top: 50px;
-            border-top: 1px solid var(--border-color);
+        /* न्यूज़ और गेम्स ग्रिड */
+        .section-heading {
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #0f0f0f;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .news-card {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #e5e5e5;
+        }
+        .news-card h5 {
+            margin: 0 0 5px 0;
             font-size: 0.9rem;
+        }
+        .news-card p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        /* नीचे का फिक्सड नेविगेशन बार (App Style) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border-top: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            text-decoration: none;
+            color: #606060;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .nav-item.active {
+            color: #ff0000;
+        }
+        .nav-item div {
+            font-size: 1.2rem;
+            margin-bottom: 2px;
         }
     </style>
 </head>
 <body>
 
-    <!-- टॉप नेविगेशन बार (Google / YouTube जैसा लुक) -->
-    <nav>
-        <a href="#" class="logo">Nepal Daily Hub</a>
-        <div class="search-container">
-            <input type="text" placeholder="खोजें (Search news, videos...)...">
+    <!-- टॉप बार (YouTube / Chrome जैसा) -->
+    <div class="top-bar">
+        <div class="app-logo">🇳🇵 Daily Hub</div>
+        <div class="search-box">
+            <input type="text" placeholder="खोजें...">
         </div>
-        <a href="#login" class="user-auth-btn">लॉगिन / आईडी बनाएँ</a>
-    </nav>
+        <a href="#login" class="login-chip">लॉगिन</a>
+    </div>
 
-    <div class="container">
+    <div class="main-content">
 
-        <!-- 📢 विज्ञापन लगाने की जगह (Top Ad) -->
-        <div class="ad-banner">
-            📢 [ यहाँ अपना विज्ञापन बैनर (AdSense / Ad Code) लगाएं ]
+        <!-- 📢 विज्ञापन स्पेस (कमाई के लिए) -->
+        <div class="ad-space">
+            📢 [ यहाँ आपका विज्ञापन / Ad Banner लगेगा ]
         </div>
 
-        <!-- 🎥 वीडियो सेक्शन (YouTube जैसा प्लेयर) -->
-        <div class="section-header">
-            <h2>🎥 वायरल वीडियो ज़ोन (Videos)</h2>
-        </div>
-        <div class="card" style="margin-top: 15px;">
-            <div class="video-container">
+        <!-- 🎥 वीडियो सेक्शन (YouTube प्लेयर) -->
+        <div class="section-heading">🎥 ट्रेंडिंग वीडियो</div>
+        <div class="video-card">
+            <div class="video-wrapper">
                 <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <div class="card-body">
-                <h3>नेपाल डेली हब - स्पेशल लाइव रिपोर्ट</h3>
-                <p>ताज़ा वीडियो अपडेट और विश्लेषण यहाँ देखें।</p>
+            <div class="video-info">
+                <h4>नेपाल डेली हब - विशेष समाचार और अपडेट</h4>
+                <p>12K views • 2 hours ago</p>
             </div>
         </div>
 
-        <!-- 📰 ताज़ा खबरें सेक्शन -->
-        <div class="section-header">
-            <h2>📰 ताज़ा खबरें (Latest News)</h2>
+        <!-- 📰 न्यूज़ सेक्शन -->
+        <div class="section-heading">📰 ताज़ा खबरें</div>
+        <div class="news-card">
+            <h5>डिजिटल नेपाल का नया विजन और तकनीकी विस्तार</h5>
+            <p>देशभर में इंटरनेट सेवाओं को तेज और सुलभ बनाने के लिए नए कदम...</p>
         </div>
-        <div class="grid-box">
-            <div class="card">
-                <div class="card-body">
-                    <h3>डिजिटल नेपाल का नया विजन</h3>
-                    <p>देशभर में इंटरनेट और तकनीक के विस्तार को लेकर सरकार ने नए कदम उठाए हैं।</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>पर्यटन क्षेत्र में ऐतिहासिक वृद्धि</h3>
-                    <p>पर्यटकों की संख्या में भारी उछाल आने से स्थानीय व्यापार में जबरदस्त तेजी आई है।</p>
-                </div>
-            </div>
+        <div class="news-card">
+            <h5>पर्यटन सीजन में भारी उछाल, रिकॉर्ड सैलानी पहुंचे</h5>
+            <p>प्रमुख पर्यटन स्थलों पर पर्यटकों की भीड़ से व्यापारियों में खुशी...</p>
         </div>
 
-        <!-- 📢 बीच का विज्ञापन बॉक्स -->
-        <div class="ad-banner">
-            📢 [ यहाँ दूसरा विज्ञापन लगाकर अपनी कमाई बढ़ाएं ]
+        <!-- 📢 दूसरा विज्ञापन स्पेस -->
+        <div class="ad-space" style="margin-top: 20px;">
+            📢 [ यहाँ दूसरा विज्ञापन लगाकर कमाई करें ]
         </div>
 
-        <!-- 🎮 गेम ज़ोन सेक्शन -->
-        <div class="section-header">
-            <h2>🎮 गेम ज़ोन (Games Hub)</h2>
-        </div>
-        <div class="card" style="margin-top: 15px;">
-            <div class="card-body">
-                <h3>ऑनलाइन मिनी गेम्स खेलें</h3>
-                <p>रोमांचक ब्राउज़र गेम्स का आनंद लें और अपना मनोरंजन करें।</p>
-                <a href="https://poki.com" target="_blank" class="action-btn">गेम खेलना शुरू करें 🕹️</a>
-            </div>
-        </div>
-
-        <!-- 🔥 ऑफर्स सेक्शन -->
-        <div class="section-header">
-            <h2>🔥 बेस्ट ऑफर्स (Offers & Gadgets)</h2>
-        </div>
-        <div class="grid-box">
-            <div class="card">
-                <div class="card-body">
-                    <h3>फेस्टिवल शॉपिंग डिस्काउंट</h3>
-                    <p>कपड़ों और गैजेट्स पर मिल रही भारी छूट (फ्लैट 50% ऑफ) की जानकारी।</p>
-                </div>
-            </div>
+        <!-- 🎮 गेम्स और फन -->
+        <div class="section-heading">🎮 गेम ज़ोन</div>
+        <div class="news-card" style="background: linear-gradient(135deg, #e0f2fe, #f0fdf4);">
+            <h5>मज़ेदार ऑनलाइन गेम्स खेलें</h5>
+            <p>बिना ऐप डाउनलोड किए सीधे मज़ा लें।</p>
+            <a href="https://poki.com" target="_blank" style="display:inline-block; margin-top:8px; background:#2563eb; color:white; padding:6px 12px; border-radius:4px; text-decoration:none; font-size:0.8rem; font-weight:bold;">गेम शुरू करें 🕹️</a>
         </div>
 
     </div>
 
-    <footer>
-        <p>&copy; 2026 Nepal Daily Hub. All rights reserved.</p>
-    </footer>
+    <!-- नीचे का ऐप जैसा नेविगेशन बार -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <div>🏠</div>होम
+        </a>
+        <a href="#" class="nav-item">
+            <div>🔥</div>शॉर्ट्स/वीडियो
+        </a>
+        <a href="#" class="nav-item">
+            <div>📰</div>न्यूज़
+        </a>
+        <a href="#" class="nav-item">
+            <div>🎮</div>गेम्स
+        </a>
+        <a href="#" class="nav-item">
+            <div>👤</div>प्रोफाइल
+        </a>
+    </div>
 
 </body>
-    </html>
+        </html>
     
