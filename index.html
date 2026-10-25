@@ -11,33 +11,50 @@
             padding: 0;
             background-color: #f4f6f9;
             color: #333;
-            text-align: center;
         }
         header {
-            background-color: #0d6efd;
+            background-color: #0066cc;
             color: white;
-            padding: 40px 20px;
+            padding: 30px 20px;
+            text-align: center;
         }
-        h1 {
+        header h1 {
             margin: 0 0 10px;
-            font-size: 2.5em;
+            font-size: 2.2rem;
         }
-        p {
-            font-size: 1.2em;
+        header p {
             margin: 0;
+            font-size: 1.1rem;
         }
         .container {
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        .section-title {
+            color: #0066cc;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .card {
             background: white;
-            padding: 30px;
+            padding: 20px;
+            margin-bottom: 15px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #222;
         }
         footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #222;
+            color: #aaa;
             margin-top: 40px;
-            color: #777;
-            font-size: 0.9em;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -45,12 +62,36 @@
 
     <header>
         <h1>Nepal Daily Hub</h1>
-        <p>Nepal's best offers, gadgets, and daily news — all in one place.</p>
+        <p>नेपाल की ताज़ा खबरें, बेहतरीन ऑफर्स और नए गैजेट्स — एक ही जगह पर</p>
     </header>
 
     <div class="container">
-        <h2>नमस्ते! (Welcome)</h2>
-        <p>हमारी यह वेबसाइट जल्द ही पूरी तरह से अपडेट होने वाली है। यहाँ आपको नेपाल की सभी ताज़ा खबरें, बेहतरीन ऑफर्स और नए गैजेट्स की जानकारी सबसे पहले मिलेगी।</p>
+        
+        <!-- ताज़ा खबरें सेक्शन -->
+        <h2 class="section-title">📰 ताज़ा खबरें (Latest News)</h2>
+        <div class="card">
+            <h3>नेपाल में डिजिटल सेवाओं का विस्तार</h3>
+            <p>देशभर में इंटरनेट और डिजिटल भुगतानों को बढ़ावा देने के लिए नए दिशा-निर्देश जारी किए गए हैं, जिससे आम जनता को और आसानी होगी।</p>
+        </div>
+        <div class="card">
+            <h3>पर्यटन सीजन में पर्यटकों की भारी वृद्धि</h3>
+            <p>इस साल नेपाल के प्रमुख पर्यटन स्थलों पर पर्यटकों की संख्या में काफी उछाल देखने को मिला है, जिससे व्यापार में तेजी आई है।</p>
+        </div>
+
+        <!-- बेहतरीन ऑफर्स सेक्शन -->
+        <h2 class="section-title">🔥 बेहतरीन ऑफर्स (Best Offers)</h2>
+        <div class="card">
+            <h3>फेस्टिवल शॉपिंग डिस्काउंट</h3>
+            <p>प्रमुख ऑनलाइन और लोकल स्टोर पर कपड़ों और घरेलू सामानों की खरीदी पर भारी छूट (फ्लैट 50% तक ऑफ) मिल रही है।</p>
+        </div>
+
+        <!-- नए गैजेट्स सेक्शन -->
+        <h2 class="section-title">📱 नए गैजेट्स (New Gadgets)</h2>
+        <div class="card">
+            <h3>बेस्ट बजट स्मार्टफोन्स नेपाल में लॉन्च</h3>
+            <p>कम कीमत में बेहतरीन बैटरी बैकअप और शानदार कैमरे वाले नए स्मार्टफोन्स नेपाली बाजार में उपलब्ध हो गए हैं।</p>
+        </div>
+
     </div>
 
     <footer>
@@ -58,4 +99,5 @@
     </footer>
 
 </body>
-</html>
+                                                                                                                     </html>
+    
