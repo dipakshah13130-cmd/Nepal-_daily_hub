@@ -48,6 +48,31 @@
             margin-top: 0;
             color: #222;
         }
+        .video-box {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            margin-top: 10px;
+        }
+        .video-box iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 6px;
+        }
+        .game-btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
         footer {
             text-align: center;
             padding: 20px;
@@ -62,34 +87,42 @@
 
     <header>
         <h1>Nepal Daily Hub</h1>
-        <p>नेपाल की ताज़ा खबरें, बेहतरीन ऑफर्स और नए गैजेट्स — एक ही जगह पर</p>
+        <p>नेपाल की ताज़ा खबरें, वीडियो, गेम्स और ऑफर्स — सबका मज़ा एक ही जगह</p>
     </header>
 
     <div class="container">
         
-        <!-- ताज़ा खबरें सेक्शन -->
-        <h2 class="section-title">📰 ताज़ा खबरें (Latest News)</h2>
+        <!-- 🎥 वीडियो सेक्शन (YouTube Video) -->
+        <h2 class="section-title">🎥 ताज़ा वीडियो (Featured Videos)</h2>
         <div class="card">
-            <h3>नेपाल में डिजिटल सेवाओं का विस्तार</h3>
-            <p>देशभर में इंटरनेट और डिजिटल भुगतानों को बढ़ावा देने के लिए नए दिशा-निर्देश जारी किए गए हैं, जिससे आम जनता को और आसानी होगी।</p>
-        </div>
-        <div class="card">
-            <h3>पर्यटन सीजन में पर्यटकों की भारी वृद्धि</h3>
-            <p>इस साल नेपाल के प्रमुख पर्यटन स्थलों पर पर्यटकों की संख्या में काफी उछाल देखने को मिला है, जिससे व्यापार में तेजी आई है।</p>
+            <h3>नेपाल डेली हब - स्पेशल रिपोर्ट</h3>
+            <p>यहाँ आप सीधे यूट्यूब के वीडियो अपनी वेबसाइट पर चला सकते हैं:</p>
+            <div class="video-box">
+                <!-- यहाँ किसी भी YouTube वीडियो का प्लेयर लगा हुआ है -->
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
 
-        <!-- बेहतरीन ऑफर्स सेक्शन -->
+        <!-- 📰 ताज़ा खबरें सेक्शन -->
+        <h2 class="section-title">📰 ताज़ा खबरें (Latest News)</h2>
+        <div class="card">
+            <h3>नेपाल में डिजिटल सेवाओं का नया विस्तार</h3>
+            <p>देशभर में इंटरनेट और डिजिटल भुगतानों को बढ़ावा देने के लिए नए दिशा-निर्देश जारी किए गए हैं।</p>
+        </div>
+
+        <!-- 🎮 गेम्स सेक्शन -->
+        <h2 class="section-title">🎮 गेम ज़ोन (Fun & Games)</h2>
+        <div class="card">
+            <h3>ऑनलाइन मिनी गेम्स खेलें</h3>
+            <p>अपनी पसंद के मज़ेदार और रोमांचक ब्राउज़र गेम्स यहाँ खेलें और अपना मनोरंजन करें।</p>
+            <a href="https://poki.com" target="_blank" class="game-btn">गेम खेलना शुरू करें 🕹️</a>
+        </div>
+
+        <!-- 🔥 बेहतरीन ऑफर्स सेक्शन -->
         <h2 class="section-title">🔥 बेहतरीन ऑफर्स (Best Offers)</h2>
         <div class="card">
             <h3>फेस्टिवल शॉपिंग डिस्काउंट</h3>
-            <p>प्रमुख ऑनलाइन और लोकल स्टोर पर कपड़ों और घरेलू सामानों की खरीदी पर भारी छूट (फ्लैट 50% तक ऑफ) मिल रही है।</p>
-        </div>
-
-        <!-- नए गैजेट्स सेक्शन -->
-        <h2 class="section-title">📱 नए गैजेट्स (New Gadgets)</h2>
-        <div class="card">
-            <h3>बेस्ट बजट स्मार्टफोन्स नेपाल में लॉन्च</h3>
-            <p>कम कीमत में बेहतरीन बैटरी बैकअप और शानदार कैमरे वाले नए स्मार्टफोन्स नेपाली बाजार में उपलब्ध हो गए हैं।</p>
+            <p>प्रमुख ऑनलाइन और लोकल स्टोर पर कपड़ों और गैजेट्स पर भारी छूट मिल रही है।</p>
         </div>
 
     </div>
@@ -99,5 +132,4 @@
     </footer>
 
 </body>
-                                                                                                                     </html>
-    
+</html>
