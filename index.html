@@ -1,251 +1,498 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="ne">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nepal Daily Hub</title>
+    <title>Nepal Daily Hub - Global & National Super App</title>
     <style>
-        * {
-            box-sizing: border-box;
+        :root {
+            --primary-color: #dc2626;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #475569;
         }
+        * { box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #0f0f0f;
-            padding-bottom: 70px; /* नीचे के नेविगेशन के लिए जगह */
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-bottom: 75px;
+            -webkit-font-smoothing: antialiased;
         }
-        /* यूट्यूब जैसा टॉप हेडर */
-        .top-bar {
+
+        .chrome-top-bar {
             background: #ffffff;
             padding: 10px 15px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #e5e5e5;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        .app-logo {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #ff0000; /* YouTube रेड टच */
+        .app-brand {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 5px;
         }
-        .search-box {
-            background: #f1f1f1;
-            border-radius: 20px;
-            padding: 6px 12px;
-            width: 45%;
+
+        .top-controls {
             display: flex;
             align-items: center;
-        }
-        .search-box input {
-            border: none;
-            background: transparent;
-            outline: none;
-            width: 100%;
-            font-size: 0.85rem;
-        }
-        .login-chip {
-            background: #2563eb;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 16px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
+            gap: 6px;
         }
 
-        .main-content {
+        .lang-select {
+            padding: 4px 6px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.7rem;
+            background: #f8fafc;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .siri-voice-btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* 🔍 सर्च बार (हर जानकारी खोजने के लिए) */
+        .search-container {
+            background: #ffffff;
+            padding: 8px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            gap: 8px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            background: #f8fafc;
+            outline: none;
+        }
+        .search-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* स्मूथ स्क्रॉलिंग कैटेगरीज */
+        .stories-scroll, .shorts-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 15px;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .stories-scroll::-webkit-scrollbar, .shorts-scroll::-webkit-scrollbar { display: none; }
+
+        .story-chip {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .story-chip.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .container {
             padding: 12px;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        /* विज्ञापन बैनर */
-        .ad-space {
+        .ads-slot {
             background: #fffbeb;
-            border: 1px dashed #f59e0b;
+            border: 2px dashed #f59e0b;
             color: #b45309;
             text-align: center;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin: 15px 0;
         }
 
-        /* वीडियो कार्ड (YouTube स्टाइल) */
-        .video-card {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 15px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            background: #000;
-        }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .video-info {
-            padding: 10px 12px;
-        }
-        .video-info h4 {
-            margin: 0 0 5px 0;
+        .section-title {
             font-size: 0.95rem;
-            color: #0f0f0f;
-        }
-        .video-info p {
-            margin: 0;
-            font-size: 0.75rem;
-            color: #606060;
-        }
-
-        /* न्यूज़ और गेम्स ग्रिड */
-        .section-heading {
-            font-size: 1.05rem;
-            font-weight: bold;
-            margin: 20px 0 10px 0;
-            color: #0f0f0f;
+            font-weight: 700;
+            margin: 20px 0 8px 0;
             display: flex;
             align-items: center;
             gap: 5px;
         }
-        .news-card {
-            background: #fff;
+
+        .shorts-scroll { background: transparent; border: none; padding: 0 0 5px 0; }
+        .short-card {
+            min-width: 120px;
+            height: 200px;
+            background: #1e293b;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: flex-end;
+            padding: 8px;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .short-card span { position: relative; z-index: 2; }
+
+        .create-post-box {
+            background: white;
             padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .create-post-box input, .create-post-box textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
             border-radius: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #e5e5e5;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            background: #f8fafc;
+            outline: none;
         }
-        .news-card h5 {
-            margin: 0 0 5px 0;
-            font-size: 0.9rem;
-        }
-        .news-card p {
-            margin: 0;
+        .post-actions { display: flex; gap: 8px; align-items: center; }
+        .camera-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
             font-size: 0.8rem;
-            color: #555;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .post-submit-btn {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            flex: 1;
+        }
+        #imagePreview {
+            width: 100%; max-height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; display: none;
         }
 
-        /* नीचे का फिक्सड नेविगेशन बार (App Style) */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #ffffff;
-            border-top: 1px solid #e5e5e5;
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0;
-            z-index: 1000;
+        .social-feed-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
         }
-        .nav-item {
-            text-align: center;
-            text-decoration: none;
-            color: #606060;
-            font-size: 0.7rem;
-            font-weight: 500;
+        .feed-header { display: flex; align-items: center; padding: 12px; gap: 10px; }
+        .feed-avatar {
+            width: 38px; height: 38px; background: #dc2626; color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem;
         }
-        .nav-item.active {
-            color: #ff0000;
+        .feed-meta h4 { margin: 0; font-size: 0.9rem; color: var(--text-main); }
+        .feed-meta span { font-size: 0.7rem; color: var(--text-sub); }
+        .feed-body { padding: 0 12px 10px 12px; font-size: 0.9rem; color: var(--text-main); }
+        .feed-body p { margin: 0 0 10px 0; line-height: 1.4; }
+
+        .video-container-box {
+            position: relative; width: 100%; padding-bottom: 56.25%; background: #000;
         }
-        .nav-item div {
-            font-size: 1.2rem;
-            margin-bottom: 2px;
+        .video-container-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .bottom-app-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff;
+            border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000;
+        }
+        .nav-tab { text-align: center; text-decoration: none; color: var(--text-sub); font-size: 0.7rem; font-weight: 600; }
+        .nav-tab.active { color: var(--primary-color); }
+        .nav-tab div { font-size: 1.25rem; margin-bottom: 2px; }
+
+        #voice-status {
+            background: #e0f2fe; color: #0369a1; padding: 6px 15px; text-align: center; font-size: 0.75rem; font-weight: bold; display: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- टॉप बार (YouTube / Chrome जैसा) -->
-    <div class="top-bar">
-        <div class="app-logo">🇳🇵 Daily Hub</div>
-        <div class="search-box">
-            <input type="text" placeholder="खोजें...">
+    <div id="voice-status">🎙️ सुन्दै छु... (Listening...)</div>
+
+    <div class="chrome-top-bar">
+        <a href="#" class="app-brand" id="ui-brand">🇳🇵 नेपाल Global Hub</a>
+        <div class="top-controls">
+            <select class="lang-select" id="langSelector" onchange="changeLanguage()">
+                <option value="ne">नेपाली</option>
+                <option value="hi">हिंदी</option>
+                <option value="en">English</option>
+            </select>
+            <button class="siri-voice-btn" onclick="startSiriVoice()">🎙️ Siri</button>
         </div>
-        <a href="#login" class="login-chip">लॉगिन</a>
     </div>
 
-    <div class="main-content">
+    <!-- 🔍 सर्च बार -->
+    <div class="search-container">
+        <input type="text" class="search-input" id="searchInput" placeholder="नेपाल र दुनियाँको कुनै पनि जानकारी खोज्नुहोस्...">
+        <button class="search-btn" onclick="performSearch()">Search</button>
+    </div>
 
-        <!-- 📢 विज्ञापन स्पेस (कमाई के लिए) -->
-        <div class="ad-space">
-            📢 [ यहाँ आपका विज्ञापन / Ad Banner लगेगा ]
+    <!-- श्रेणियाँ (Categories) -->
+    <div class="stories-scroll">
+        <div class="story-chip active" id="menu-all">सबै (All)</div>
+        <div class="story-chip" id="menu-nepal">🇳🇵 नेपाल विशेष</div>
+        <div class="story-chip" id="menu-world">🌍 दुनियाँ (World)</div>
+        <div class="story-chip" id="menu-songs">🎵 गीत-संगीत</div>
+        <div class="story-chip" id="menu-shorts">⚡ शॉर्ट्स</div>
+        <div class="story-chip" id="menu-videos">🎥 भिडियो</div>
+    </div>
+
+    <div class="container">
+
+        <!-- 💰 विज्ञापन स्लॉट (कमाई के लिए) -->
+        <div class="ads-slot" id="ad-text">
+            📢 [ Google AdSense Ad Space - Earn Money Here ]
         </div>
 
-        <!-- 🎥 वीडियो सेक्शन (YouTube प्लेयर) -->
-        <div class="section-heading">🎥 ट्रेंडिंग वीडियो</div>
-        <div class="video-card">
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- ✍️ पोस्ट और कैमरा सेक्शन -->
+        <div class="create-post-box">
+            <h4 style="margin: 0 0 8px 0; font-size: 0.90rem;" id="post-title">✍️ आफ्नो फोटो र जानकारी सेयर गर्नुहोस्</h4>
+            <input type="text" id="userName" placeholder="तपाईंको नाम...">
+            <textarea id="userPost" rows="2" placeholder="आज नेपाल वा दुनियाँमा के हुँदैछ लेख्नुहोस्..."></textarea>
+            
+            <img id="imagePreview" alt="Preview">
+            
+            <div class="post-actions">
+                <button class="camera-btn" onclick="document.getElementById('cameraInput').click()">
+                    📸 फोटो खिच्नुहोस्
+                </button>
+                <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="previewCameraImage(event)">
+                
+                <button class="post-submit-btn" onclick="publishPost()" id="post-btn">Publish</button>
             </div>
-            <div class="video-info">
-                <h4>नेपाल डेली हब - विशेष समाचार और अपडेट</h4>
-                <p>12K views • 2 hours ago</p>
+        </div>
+
+        <!-- 🇳🇵 नेपाल की ताज़ा खबरें और जानकारी -->
+        <div class="section-title" id="nepal-heading">🇳🇵 नेपाल राष्ट्रिय तथा स्थानीय जानकारी</div>
+        <div class="social-feed-card">
+            <div class="feed-header">
+                <div class="feed-avatar">🇳🇵</div>
+                <div class="feed-meta">
+                    <h4>Nepal Daily Hub News</h4>
+                    <span id="nepal-time">भर्खरै • आधिकारिक अपडेट</span>
+                </div>
+            </div>
+            <div class="feed-body">
+                <p id="nepal-desc">काठमाडौं, पोखरा, नेपालगन्ज र देशका ७७ वटै जिल्लाका ताजा राजनीतिक, सामाजिक र आर्थिक सुचनाहरू।</p>
+            </div>
+            <div class="video-container-box">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Nepal News" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
 
-        <!-- 📰 न्यूज़ सेक्शन -->
-        <div class="section-heading">📰 ताज़ा खबरें</div>
-        <div class="news-card">
-            <h5>डिजिटल नेपाल का नया विजन और तकनीकी विस्तार</h5>
-            <p>देशभर में इंटरनेट सेवाओं को तेज और सुलभ बनाने के लिए नए कदम...</p>
-        </div>
-        <div class="news-card">
-            <h5>पर्यटन सीजन में भारी उछाल, रिकॉर्ड सैलानी पहुंचे</h5>
-            <p>प्रमुख पर्यटन स्थलों पर पर्यटकों की भीड़ से व्यापारियों में खुशी...</p>
+        <!-- 🌍 दुनिया और अन्य देशों की जानकारी (World Info) -->
+        <div class="section-title" id="world-heading">🌍 दुनियाँ र अन्य देशहरूको जानकारी (World Hub)</div>
+        <div class="social-feed-card">
+            <div class="feed-header">
+                <div class="feed-avatar" style="background: #2563eb;">🌐</div>
+                <div class="feed-meta">
+                    <h4>Global News & Tech</h4>
+                    <span id="world-time">अन्तर्राष्ट्रिय अपडेट • World Wide</span>
+                </div>
+            </div>
+            <div class="feed-body">
+                <p id="world-desc">दुनिया भर की बड़ी खबरें, टेक्नोलॉजी, खेल, और अंतरराष्ट्रीय जानकारी अब एक ही जगह पर।</p>
+            </div>
+            <div class="video-container-box">
+                <iframe src="https://www.youtube.com/embed/kJQP7kiw5Fk" title="World Info" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
 
-        <!-- 📢 दूसरा विज्ञापन स्पेस -->
-        <div class="ad-space" style="margin-top: 20px;">
-            📢 [ यहाँ दूसरा विज्ञापन लगाकर कमाई करें ]
+        <!-- 🎵 नेपाली और हिंदी गाने (Music Hub) -->
+        <div class="section-title" id="songs-heading">🎵 नेपाल & हिन्दी म्युजिक (Songs Hub)</div>
+        <div class="social-feed-card">
+            <div class="feed-header">
+                <div class="feed-avatar" style="background: #16a34a;">🎶</div>
+                <div class="feed-meta">
+                    <h4>Nepali & Hindi Hit Music</h4>
+                    <span>लोकप्रिय नेपाली र हिन्दी गीतहरू</span>
+                </div>
+            </div>
+            <div class="video-container-box">
+                <iframe src="https://www.youtube.com/embed/kJQP7kiw5Fk" title="Song" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
 
-        <!-- 🎮 गेम्स और फन -->
-        <div class="section-heading">🎮 गेम ज़ोन</div>
-        <div class="news-card" style="background: linear-gradient(135deg, #e0f2fe, #f0fdf4);">
-            <h5>मज़ेदार ऑनलाइन गेम्स खेलें</h5>
-            <p>बिना ऐप डाउनलोड किए सीधे मज़ा लें।</p>
-            <a href="https://poki.com" target="_blank" style="display:inline-block; margin-top:8px; background:#2563eb; color:white; padding:6px 12px; border-radius:4px; text-decoration:none; font-size:0.8rem; font-weight:bold;">गेम शुरू करें 🕹️</a>
+        <!-- ⚡ शॉर्ट्स वीडियो सेक्शन (YouTube Shorts Style) -->
+        <div class="section-title" id="shorts-heading">⚡ नेपाल & ग्लोबल शॉर्ट्स (Shorts)</div>
+        <div class="shorts-scroll">
+            <div class="short-card" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=300') center/cover;">
+                <span>नेपालगन्ज अपडेट</span>
+            </div>
+            <div class="short-card" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1581793745862-99fce18949df?w=300') center/cover;">
+                <span>काठमाडौं भ्यू</span>
+            </div>
+            <div class="short-card" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1605648916361-9bc12ad6a566?w=300') center/cover;">
+                <span>पोखरा फेवाताल</span>
+            </div>
+            <div class="short-card" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1578593139886-2917af851b9e?w=300') center/cover;">
+                <span>पशुपतिनाथ दर्शन</span>
+            </div>
         </div>
 
     </div>
 
-    <!-- नीचे का ऐप जैसा नेविगेशन बार -->
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active">
-            <div>🏠</div>होम
-        </a>
-        <a href="#" class="nav-item">
-            <div>🔥</div>शॉर्ट्स/वीडियो
-        </a>
-        <a href="#" class="nav-item">
-            <div>📰</div>न्यूज़
-        </a>
-        <a href="#" class="nav-item">
-            <div>🎮</div>गेम्स
-        </a>
-        <a href="#" class="nav-item">
-            <div>👤</div>प्रोफाइल
-        </a>
+    <div class="bottom-app-nav">
+        <a href="#" class="nav-tab active" id="nav-home"><div>🏠</div>गृहपृष्ठ</a>
+        <a href="#" class="nav-tab" id="nav-shorts"><div>⚡</div>शॉर्ट्स</a>
+        <a href="#" class="nav-tab" id="nav-videos"><div>▶️</div>भिडियो</a>
+        <a href="#" class="nav-tab" id="nav-news"><div>📰</div>समाचार</a>
     </div>
 
-</body>
-        </html>
-    
+    <script>
+        const translations = {
+            ne: {
+                brand: "🇳🇵 नेपाल Global Hub",
+                searchPh: "नेपाल र दुनियाँको कुनै पनि जानकारी खोज्नुहोस्...",
+                searchBtn: "खोज्नुहोस्",
+                menuAll: "सबै (All)",
+                menuNepal: "🇳🇵 नेपाल विशेष",
+                menuWorld: "🌍 दुनियाँ (World)",
+                menuSongs: "🎵 गीत-संगीत",
+                menuShorts: "⚡ शॉर्ट्स",
+                menuVideos: "🎥 भिडियो",
+                postTitle: "✍️ आफ्नो फोटो र जानकारी सेयर गर्नुहोस्",
+                namePh: "तपाईंको नाम...",
+                postPh: "आज नेपाल वा दुनियाँमा के हुँदैछ लेख्नुहोस्...",
+                camBtn: "📸 फोटो खिच्नुहोस्",
+                pubBtn: "Publish",
+                nepalH: "🇳🇵 नेपाल राष्ट्रिय तथा स्थानीय जानकारी",
+                worldH: "🌍 दुनियाँ र अन्य देशहरूको जानकारी (World Hub)",
+                songsH: "🎵 नेपाल & हिन्दी म्युजिक (Songs Hub)",
+                shortsH: "⚡ नेपाल & ग्लोबल शॉर्ट्स (Shorts)",
+                navHome: "गृहपृष्ठ",
+                navShorts: "शॉर्ट्स",
+                navVideos: "भिडियो",
+                navNews: "समाचार"
+            },
+            hi: {
+                brand: "🇳🇵 नेपाल Global Hub",
+                searchPh: "नेपाल और दुनिया की कोई भी जानकारी खोजें...",
+                searchBtn: "सर्च करें",
+                menuAll: "सभी (All)",
+                menuNepal: "🇳🇵 नेपाल विशेष",
+                menuWorld: "🌍 दुनिया (World)",
+                menuSongs: "🎵 गाने & संगीत",
+                menuShorts: "⚡ शॉर्ट्स",
+                menuVideos: "🎥 वीडियो",
+                postTitle: "✍️ अपनी फोटो और जानकारी शेयर करें",
+                namePh: "आपका नाम...",
+                postPh: "आज नेपाल या दुनिया में क्या हो रहा है लिखें...",
+                camBtn: "📸 फोटो खींचें",
+                pubBtn: "पब्लिश करें",
+                nepalH: "🇳🇵 नेपाल राष्ट्रीय और स्थानीय जानकारी",
+                worldH: "🌍 दुनिया और अन्य देशों की जानकारी (World Hub)",
+                songsH: "🎵 नेपाली & हिंदी संगीत (Songs Hub)",
+                shortsH: "⚡ नेपाल & ग्लोबल शॉर्ट्स (Shorts)",
+                navHome: "होम",
+                navShorts: "शॉर्ट्स",
+                navVideos: "वीडियो",
+                navNews: "समाचार"
+            },
+            en: {
+                brand: "🇳🇵 Nepal Global Hub",
+                searchPh: "Search anything about Nepal or the World...",
+                searchBtn: "Search",
+                menuAll: "All",
+                menuNepal: "🇳🇵 Nepal",
+                menuWorld: "🌍 World",
+                menuSongs: "🎵 Songs",
+                menuShorts: "⚡ Shorts",
+                menuVideos: "🎥 Videos",
+                postTitle: "✍️ Share Your Photo & Info",
+                namePh: "Your name...",
+                postPh: "What's happening in Nepal or the world...",
+                camBtn: "📸 Capture Photo",
+                pubBtn: "Publish",
+                nepalH: "🇳🇵 Nepal National & Local Info",
+                worldH: "🌍 World & Global Information Hub",
+                songsH: "🎵 Nepali & Hindi Music Hub",
+                shortsH: "⚡ Nepal & Global Shorts",
+                navHome: "Home",
+                navShorts: "Shorts",
+                navVideos: "Videos",
+                navNews: "News"
+            }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById('langSelector').value;
+            const t = translations[lang];
+
+            document.getElementById('ui-brand').innerText = t.brand;
+            document.getElementById('searchInput').placeholder = t.searchPh;
+            document.querySelector('.search-btn').innerText = t.searchBtn;
+            document.getElementById('menu-all').innerText = t.menuAll;
+            document.getElementById('menu-nepal').innerText = t.menuNepal;
+            document.getElementById('menu-world').innerText = t.menuWorld;
+            document.getElementById('menu-songs').innerText = t.menuSongs;
+            document.getElementById('menu-shorts').innerText = t.menuShorts;
+            document.getElementById('menu-videos').innerText = t.menuVideos;
+            document.getElementById('post-title').innerText = t.postTitle;
+            document.getElementById('userName').placeholder = t.namePh;
+            document.getElementById('userPost').placeholder = t.postPh;
+            document.querySelector('.camera-btn').innerHTML = t.camBtn;
+            document.getElementById('post-btn').innerText = t.pubBtn;
+            document.getElementById('nepal-heading').innerText = t.nepalH;
+            document.getElementById('world-heading').innerText = t.worldH;
+            document.getElementById('songs-heading').innerText = t.songsH;
+            document.getElementById('shorts-heading').innerText = t.shortsH;
+          
